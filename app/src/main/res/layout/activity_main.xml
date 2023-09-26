@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/gradient_background">
+
+    <TextView
+        android:id="@+id/labelTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:shadowColor="#000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:text="QRCode Analyser"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/qrImageView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/imageview_background"
+        android:padding="8dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/app_version"/>
+
+    <TextView
+        android:id="@+id/labelWeblTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text=""
+        android:textSize="18sp"
+        android:gravity="center"
+        android:shadowColor="#000000"
+        android:shadowDx="1"
+        android:shadowDy="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
+
+        <TextView
+            android:id="@+id/labelWebAnalysisHarmless"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:shadowColor="#000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:text=""
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/labelWebAnalysisMalicious"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:shadowColor="#000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:text=""
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
+
+        <TextView
+            android:id="@+id/labelWebAnalysisSuspicious"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:shadowColor="#000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:text=""
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/labelWebAnalysisUndetected"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:shadowColor="#000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:text=""
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/labelWeblUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text=""
+        android:textSize="18sp"
+        android:gravity="center"
+        android:shadowColor="#000000"
+        android:shadowDx="1"
+        android:shadowDy="1" />
+
+    <Button
+        android:id="@+id/scanQRButton"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:background="@drawable/circle_button_background"
+        android:drawableTop="@drawable/ic_scan"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text=""
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginTop="140dp"
+        android:drawablePadding="25dp" />
+
+</LinearLayout>
