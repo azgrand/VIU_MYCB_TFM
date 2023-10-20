@@ -15,8 +15,7 @@ import com.example.prototype.engine.InternetFunction
 import com.example.prototype.engine.PermissionCode.Companion.CAMERA_PERMISSION_REQUEST_CODE
 import com.example.prototype.engine.PermissionCode.Companion.INTERNET_PERMISSION_REQUEST_CODE
 import com.example.prototype.engine.UrlCheker
-import com.google.zxing.integration.android.IntentIntegrator
-import com.google.zxing.integration.android.IntentResult
+import com.google.zxing.integration.android.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,38 +28,29 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         internetFunction = InternetFunction(this)
         cameraFunction = CameraFunction(this)
-
-        // Bloquear la orientación a retrato
+        // Bloquea la orientación en modo retrato
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-
         // Ocultar la barra de título
         supportActionBar?.hide()
-
         // Ocultar la barra de estado
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-
         setContentView(R.layout.activity_main)
-
-        // Verifica el permiso de Camara
+        // Verifica el permiso de la cámara
         if (!cameraFunction.isCameraPermissionGranted()){
             cameraFunction.requestCameraPermission()
         }
-
         // Verifica el permiso de Internet
         if (!internetFunction.isInternetPermissionGranted()) {
             internetFunction.requestInternetPermission()
         }
-
-        // Initiating the QR code scan
+        // Inicia el escaneo de códigos QR
         val scanQRButton: Button = findViewById(R.id.scanQRButton)
         scanQRButton.setOnClickListener {
             IntentIntegrator(this).initiateScan()
         }
-
-        // Agrega un clic listener al TextView para abrir la página web
+        // Agrega un clic para abrir la página web desde el TextView
         val labelUrl: TextView = findViewById(R.id.labelWeblUrl)
         labelUrl.setOnClickListener {
             internetFunction.openWebPage(labelUrl.text.toString(),iMalicious, iSuspicious)
@@ -74,11 +64,11 @@ class MainActivity : AppCompatActivity() {
         iMalicious = 0
         iSuspicious = 0
         iUndetected = 0
-        // Retrieve scan result
+        // Recupera el resultado del escaneo
         val result: IntentResult? = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result != null) {
             if (result.contents != null) {
-                // QR code successfully scanned
+                // Código QR escaneado con éxito
                 val urlChecker = UrlCheker()
                 val labelUrl: TextView = findViewById(R.id.labelWeblUrl)
                 val labelTittle: TextView = findViewById(R.id.labelWeblTitle)
@@ -86,8 +76,7 @@ class MainActivity : AppCompatActivity() {
                 val labelAnalysisMalicious: TextView = findViewById(R.id.labelWebAnalysisMalicious)
                 val labelAnalysisSuspicious: TextView = findViewById(R.id.labelWebAnalysisSuspicious)
                 val labelAnalysisUndetected: TextView = findViewById(R.id.labelWebAnalysisUndetected)
-
-                // Llamar y hacer las validaciones.
+                // Realiza comprobaciones y validaciones
                 if (urlChecker.isValidUrl(result.contents)) {
                     urlChecker.checkURLForMalware(result.contents) { isMalware, harmlessCount, maliciousCount, suspiciousCount, undetectedCount, title ->
                         iHarmless = harmlessCount
@@ -103,7 +92,12 @@ class MainActivity : AppCompatActivity() {
                                 labelAnalysisSuspicious.text = "Sospechosos: $suspiciousCount"
                                 labelAnalysisUndetected.text = "Ocultos: $undetectedCount "
                                 labelUrl.text = result.contents
-                                labelUrl.setTextColor(ContextCompat.getColor(this, R.color.colorNoMalware))
+                                if (suspiciousCount == 0){
+                                    labelUrl.setTextColor(ContextCompat.getColor(this, R.color.colorHarmless))
+                                }
+                                else{
+                                    labelUrl.setTextColor(ContextCompat.getColor(this, R.color.colorSuspicious))
+                                }
                             }
                             else {
                                 // La URL contiene malware
@@ -113,9 +107,10 @@ class MainActivity : AppCompatActivity() {
                                 labelAnalysisSuspicious.text = "Sospechosos: $suspiciousCount"
                                 labelAnalysisUndetected.text = "Ocultos: $undetectedCount "
                                 labelUrl.text = result.contents
-                                labelUrl.setTextColor(ContextCompat.getColor(this, R.color.colorMalware))
+                                labelUrl.setTextColor(ContextCompat.getColor(this, R.color.colorMalicious))
                             }
                         } else {
+                            // La URL no ha sido encontrada
                             labelTittle.text = "URL no encontrada"
                             labelAnalysisHarmless.text = ""
                             labelAnalysisMalicious.text = ""
@@ -126,6 +121,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 } else {
+                    // La URL no es valida
                     labelTittle.text = "URL no válida"
                     labelAnalysisHarmless.text = ""
                     labelAnalysisMalicious.text = ""
@@ -134,7 +130,7 @@ class MainActivity : AppCompatActivity() {
                     labelUrl.text ="No se ha escaneado una URL o la URL no es validada"
                     labelUrl.setTextColor(ContextCompat.getColor(this, R.color.colorInvalidUrl))
                 }
-                // Convierte el contenido del código QR a un bitmap y muestra el bitmap en la SurfaceView
+                // Genera y muestra un bitmap a partir del contenido del código QR
                 val imageView: ImageView = findViewById(R.id.qrImageView)
                 cameraFunction.generateAndDisplayQRBitmap(result.contents, imageView)
             } else {

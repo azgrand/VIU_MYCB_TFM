@@ -16,7 +16,7 @@
         android:shadowColor="#000000"
         android:shadowDx="1"
         android:shadowDy="1"
-        android:text="QRCode Analyser"
+        android:text="@string/app_name"
         android:textSize="18sp"
         android:textStyle="bold" />
 

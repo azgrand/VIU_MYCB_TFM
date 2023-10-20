@@ -57,7 +57,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.zxing:core:3.3.3")
+    implementation("com.google.zxing:core:3.4.1")
     implementation("com.squareup.okhttp3:okhttp:4.9.1")
     implementation("com.journeyapps:zxing-android-embedded:4.2.0")
     testImplementation("junit:junit:4.13.2")

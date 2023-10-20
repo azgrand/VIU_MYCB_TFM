@@ -33,9 +33,9 @@ class CameraFunction(private val activity: AppCompatActivity) {
         when (requestCode) {
             PermissionCode.CAMERA_PERMISSION_REQUEST_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Permiso de Internet concedido
+                    // Permiso de cámara concedido
                 } else {
-                    // Permiso de Internet denegado
+                    // Permiso de cámara denegado
                     Toast.makeText(activity, "No hay acceso a la camara", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -44,7 +44,6 @@ class CameraFunction(private val activity: AppCompatActivity) {
 
     fun generateAndDisplayQRBitmap(qrContent: String, imageView: ImageView) {
         val qrBitmap: Bitmap? = generateBitmapFromQRContent(qrContent)
-
         activity.runOnUiThread {
             if (qrBitmap != null) {
                 // Asegúrate de que la imagen se ajuste correctamente al ImageView
@@ -63,7 +62,6 @@ class CameraFunction(private val activity: AppCompatActivity) {
     private fun generateQRCodeBitmap(qrContent: String, width: Int, height: Int): Bitmap? {
         val hints: Hashtable<EncodeHintType, String> = Hashtable()
         hints[EncodeHintType.CHARACTER_SET] = "UTF-8"
-
         try {
             val bitMatrix: BitMatrix = MultiFormatWriter().encode(qrContent, BarcodeFormat.QR_CODE, width, height, hints)
             val pixels = IntArray(width * height)
@@ -71,20 +69,18 @@ class CameraFunction(private val activity: AppCompatActivity) {
             for (y in 0 until height) {
                 for (x in 0 until width) {
                     if (bitMatrix[x, y]) {
-                        pixels[y * width + x] = 0xff000000.toInt() // Black color
+                        pixels[y * width + x] = 0xff000000.toInt() // Color negro
                     } else {
-                        pixels[y * width + x] = 0xffffffff.toInt() // White color
+                        pixels[y * width + x] = 0xffffffff.toInt() // Color blanco
                     }
                 }
             }
-
             val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
             bitmap.setPixels(pixels, 0, width, 0, 0, width, height)
             return bitmap
         } catch (e: WriterException) {
             e.printStackTrace()
         }
-
         return null
     }
 

@@ -9,7 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="colorPrimary">#3498db</color>
     <color name="colorPrimaryDark">#2980b9</color>
-    <color name="colorMalware">#9E1F1F</color> <!-- Color para URLs con malware (rojo) -->
-    <color name="colorNoMalware">#1D4E55</color> <!-- Color para URLs sin malware (verde) -->
-    <color name="colorInvalidUrl">#F6A172</color> <!-- Color para URLs no válidas (negro) -->
+    <color name="colorSuspicious">#F6A172</color> <!-- Color para URLs con sospechas (naranja) -->
+    <color name="colorMalicious">#9E1F1F</color> <!-- Color para URLs con malware (rojo) -->
+    <color name="colorHarmless">#1D4E55</color> <!-- Color para URLs sin malware (verde) -->
+    <color name="colorInvalidUrl">#FFFF66</color> <!-- Color para URLs no válidas (amarillo) -->
 </resources>

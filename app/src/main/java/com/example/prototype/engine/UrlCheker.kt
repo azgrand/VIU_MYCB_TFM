@@ -4,7 +4,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.*
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import java.io.IOException
 import android.util.Base64
 import com.example.prototype.engine.PermissionCode.Companion.API_KEY
@@ -23,7 +24,6 @@ class UrlCheker {
                 .addHeader("accept", "application/json")
                 .addHeader("x-apikey", API_KEY)
                 .build()
-
             try {
                 val response = client.newCall(request).execute()
                 if (response.isSuccessful) {
@@ -37,9 +37,13 @@ class UrlCheker {
                     val title = if (attributes.has("title")) {
                         attributes.getString("title")
                     } else {
-                        "URL Maliciosa"
+                        if (suspiciousCount == 0){
+                            "URL Maliciosa"
+                        }
+                        else{
+                            "URL Sospechosa"
+                        }
                     }
-
                     withContext(Dispatchers.Main) {
                         onResult(true, harmlessCount, maliciousCount, suspiciousCount, undetectedCount, title)
                     }

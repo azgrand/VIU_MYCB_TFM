@@ -41,7 +41,7 @@ class InternetFunction(private val activity: AppCompatActivity) {
                 Intent(Intent.ACTION_VIEW, webpage)
             }
             if (maliciousCount == 0 && suspiciousCount == 0){
-                // Abrimos la url sin problema
+                // Abrimos la url sin problemas
                 activity.startActivity(intent)
             }
             else if (maliciousCount == 0 && suspiciousCount > 0){
@@ -49,7 +49,7 @@ class InternetFunction(private val activity: AppCompatActivity) {
                 val builder = AlertDialog.Builder(activity)
                 // Configura el título y el mensaje del diálogo
                 builder.setTitle("Confirmación")
-                builder.setMessage("¿No podemos confirmar la seguridad de la URL. ¿Quieres continuar?")
+                builder.setMessage("No podemos confirmar la seguridad de la URL. ¿Quieres continuar?")
                 // Agrega los botones y sus acciones
                 builder.setPositiveButton("Sí") { _: DialogInterface, _: Int ->
                     // Aquí pones el código para continuar
